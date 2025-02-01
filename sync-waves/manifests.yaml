@@ -34,7 +34,7 @@ spec:
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: backend
+  name: backend-normal
 spec:
   replicas: 1
   selector:
@@ -52,7 +52,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: backend-normal
 spec:
   selector:
     tier: backend
@@ -100,9 +100,9 @@ spec:
           image: nginx:latest
 ---
 apiVersion: v1
-kind: Service-normal
+kind: Service
 metadata:
-  name: frontend
+  name: frontend-normal
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
