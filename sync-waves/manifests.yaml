@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: upgrade-sql-schema-1
+  generateName: presync-1
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "0"
@@ -18,7 +18,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: upgrade-sql-schema-2
+  generateName: presync-2
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "1"
@@ -64,7 +64,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: maint-page-up
+  name: delete-1-maint-page-up
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
@@ -82,7 +82,7 @@ spec:
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: frontend
+  name: frontend-normal
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
@@ -100,7 +100,7 @@ spec:
           image: nginx:latest
 ---
 apiVersion: v1
-kind: Service
+kind: Service-normal
 metadata:
   name: frontend
   annotations:
@@ -116,7 +116,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: maint-page-down
+  name: delete-3-maint-page-down
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
